@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "cloudinary", "cloudinary_storage",
+    "qrdata"
 ]
 
 MIDDLEWARE = [
@@ -72,12 +74,28 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# postgresql://postgres:RxAvSBPspnbQicAEPlagbfznwQhkBFki@shortline.proxy.rlwy.net:28598/railway
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'RxAvSBPspnbQicAEPlagbfznwQhkBFki',
+        'HOST': 'shortline.proxy.rlwy.net',
+        'PORT': '28598',
     }
 }
+
+
 
 
 # Password validation
@@ -115,3 +133,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+
+
+
+
+
+
+import cloudinary
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "dfbgmecul",
+    "API_KEY": "618289788112494",
+    "API_SECRET": "_TPVPQJQnuTbgG8lNlPj4hdLEco",
+}
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+cloudinary.config(
+  cloud_name=CLOUDINARY_STORAGE["CLOUD_NAME"],
+  api_key=CLOUDINARY_STORAGE["API_KEY"],
+  api_secret=CLOUDINARY_STORAGE["API_SECRET"],
+  secure=True
+)
