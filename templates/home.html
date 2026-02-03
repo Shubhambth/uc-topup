@@ -130,30 +130,91 @@ main { padding: 24px 16px 80px; max-width: 480px; margin: 0 auto; }
 .section-title-row svg { width: 22px; height: 22px; flex-shrink: 0; }
 .section-title-row h3 { margin-bottom: 0; }
 
+/* ───── GAME SECTION NEON BG ───── */
+.game-section-wrap {
+  position: relative;
+  background: #111b2e;
+  border-radius: 22px;
+  padding: 28px 18px 24px;
+  border: 1px solid rgba(168,85,247,.18);
+  overflow: hidden;
+}
+/* purple neon blob – left */
+.game-section-wrap::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(168,85,247,.45) 0%, transparent 70%);
+  filter: blur(28px);
+  pointer-events: none;
+  z-index: 0;
+}
+/* blue neon blob – right */
+.game-section-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; right: -50px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(59,130,246,.35) 0%, transparent 70%);
+  filter: blur(24px);
+  pointer-events: none;
+  z-index: 0;
+}
+.game-section-wrap h3 {
+  position: relative; z-index: 1;
+  font-size: 1.35rem; font-weight: 700;
+  margin-bottom: 18px; text-align: center;
+}
+
 /* ───── GAME CARDS ───── */
-.game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.game-grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
 .game-card {
-  background: #1a2742; border-radius: 18px; padding: 18px 10px;
-  cursor: pointer; text-align: center;
-  border: 2px solid transparent;
+  background: rgba(26,39,66,.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 14px 12px;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 12px;
+  border: 2px solid rgba(255,255,255,.06);
   transition: border-color .3s, box-shadow .3s, transform .2s;
 }
-.game-card:active { transform: scale(.97); }
-.game-card.selected { border-color: #a855f7; box-shadow: 0 0 20px rgba(168,85,247,.5); }
-.game-card-icon {
-  width: 72px; height: 72px; border-radius: 16px;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 12px; font-weight: 800; font-size: 18px; color: #fff;
-  position: relative;
+.game-card:active { transform: scale(.96); }
+.game-card.selected {
+  border-color: #a855f7;
+  box-shadow: 0 0 14px rgba(168,85,247,.55), inset 0 0 16px rgba(168,85,247,.08);
 }
-.game-card-icon.bgmi  { background: linear-gradient(135deg, #ec4899, #f97316); }
-.game-card-icon.ff    { background: linear-gradient(135deg, #2563eb, #60a5fa); }
-.game-card p.name     { font-weight: 700; font-size: 1.05rem; }
-.game-card p.sub      { color: #94a3b8; font-size: .8rem; margin-top: 2px; }
+
+/* icon (game thumbnail) */
+.game-card-icon {
+  width: 58px; height: 58px; min-width: 58px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #1a1a2e;
+  padding: 4px;
+}
+.game-card-icon img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  display: block;
+}
+
+/* text block to the right of the icon */
+.game-card-text { display: flex; flex-direction: column; }
+.game-card p.name { font-weight: 700; font-size: 1rem; line-height: 1.3; }
+.game-card p.sub  { color: #94a3b8; font-size: .78rem; margin-top: 1px; }
+
 .badge-max {
   position: absolute; top: -6px; right: -6px;
-  background: #eab308; color: #000; font-size: .65rem; font-weight: 800;
-  padding: 2px 6px; border-radius: 6px; transform: rotate(12deg);
+  background: #eab308; color: #000; font-size: .6rem; font-weight: 800;
+  padding: 2px 5px; border-radius: 5px; transform: rotate(12deg);
 }
 
 /* ───── PLAYER ID INPUT ───── */
@@ -201,17 +262,32 @@ main { padding: 24px 16px 80px; max-width: 480px; margin: 0 auto; }
 .pkg-card:active { transform: scale(.97); }
 .pkg-card.selected { border-color: #a855f7; box-shadow: 0 0 18px rgba(168,85,247,.5); background: rgba(168,85,247,.08); }
 .pkg-icon {
-  width: 72px; height: 72px; border-radius: 16px;
+  width: 72px; height: 72px;
+  min-width: 72px; min-height: 72px;
+  max-width: 72px; max-height: 72px;
+  border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 10px; position: relative;
+  overflow: hidden;
+  padding: 8px;
 }
 .pkg-icon.uc   { background: linear-gradient(135deg, #1e3a5f, #2d5a8e); }
 .pkg-icon.dia  { background: linear-gradient(135deg, #0e7490, #1e3a5f); }
-.pkg-icon svg  { width: 42px; height: 42px; }
+.pkg-icon svg  { width: 42px; height: 42px; flex-shrink: 0; }
+.pkg-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  display: block;
+}
 .pkg-icon .badge-uc {
   position: absolute; top: -4px; right: -4px;
   background: #7c3aed; color: #fff; font-size: .62rem; font-weight: 800;
   padding: 2px 5px; border-radius: 5px;
+  z-index: 2;
 }
 .pkg-card p.pkg-name  { font-weight: 700; font-size: 1rem; }
 .pkg-card p.pkg-price { font-size: 1.4rem; font-weight: 800; color: #c084fc; margin-top: 2px; }
@@ -352,7 +428,7 @@ label { display: block; color: #cbd5e1; font-weight: 500; font-size: .9rem; marg
   </nav>
   <div class="menu-user">
     <div class="menu-user-avatar">U</div>
-    <div class="menu-user-info"><p>User Account</p><span>user@example.com</span></div>
+    <div class="menu-user-info"><p>User Account</p><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a4f495f487a5f425b574a565f14595557">[email&#160;protected]</a></span></div>
   </div>
 </div>
 
@@ -403,18 +479,28 @@ label { display: block; color: #cbd5e1; font-weight: 500; font-size: .9rem; marg
   </div>
 
   <!-- Select Game -->
-  <div class="section-card">
+  <div class="game-section-wrap">
     <h3>Select Game</h3>
     <div class="game-grid">
       <div class="game-card selected" id="cardBgmi" onclick="selectGame('bgmi')">
-        <div class="game-card-icon bgmi">BGMI</div>
-        <p class="name">BGMI</p>
-        <p class="sub">Official Seller</p>
+        <div class="game-card-icon bgmi">
+          <img src="https://topup-crazy.com/uploads/media/692fd8535a77f_1764743251.png" alt="BGMI">
+        </div>
+        <div class="game-card-text">
+          <p class="name">BGMI</p>
+          <p class="sub">Official Seller</p>
+        </div>
       </div>
       <div class="game-card" id="cardFf" onclick="selectGame('freefire')">
-        <div class="game-card-icon ff">FF<span class="badge-max">MAX</span></div>
-        <p class="name">Free Fire</p>
-        <p class="sub">Official Seller</p>
+        <div class="game-card-icon ff">
+          <img src="
+https://topup-crazy.com/uploads/media/692fd8583e26e_1764743256.png" alt="Free Fire">
+          <span class="badge-max">MAX</span>
+        </div>
+        <div class="game-card-text">
+          <p class="name">Free Fire</p>
+          <p class="sub">Official Seller</p>
+        </div>
       </div>
     </div>
   </div>
@@ -450,26 +536,26 @@ label { display: block; color: #cbd5e1; font-weight: 500; font-size: .9rem; marg
 
     <!-- BGMI packages -->
     <div class="pkg-grid" id="bgmiPkgs">
-      <div class="pkg-card" onclick="selectPackage(this,'5400 UC','₹499')"><div class="pkg-icon uc"><svg fill="#facc15" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="badge-uc">UC</span></div><p class="pkg-name">5400 UC</p><p class="pkg-price">₹499</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'9250 UC','₹599')"><div class="pkg-icon uc"><svg fill="#facc15" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="badge-uc">UC</span></div><p class="pkg-name">9250 UC</p><p class="pkg-price">₹599</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'13100 UC','₹699')"><div class="pkg-icon uc"><svg fill="#facc15" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="badge-uc">UC</span></div><p class="pkg-name">13100 UC</p><p class="pkg-price">₹699</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'25212 UC','₹799')"><div class="pkg-icon uc"><svg fill="#facc15" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="badge-uc">UC</span></div><p class="pkg-name">25212 UC</p><p class="pkg-price">₹799</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'32400 UC','₹899')"><div class="pkg-icon uc"><svg fill="#facc15" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="badge-uc">UC</span></div><p class="pkg-name">32400 UC</p><p class="pkg-price">₹899</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'38500 UC','₹999')"><div class="pkg-icon uc"><svg fill="#facc15" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="badge-uc">UC</span></div><p class="pkg-name">38500 UC</p><p class="pkg-price">₹999</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'47000 UC','₹1299')"><div class="pkg-icon uc"><svg fill="#facc15" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="badge-uc">UC</span></div><p class="pkg-name">47000 UC</p><p class="pkg-price">₹1299</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'56500 UC','₹1499')"><div class="pkg-icon uc"><svg fill="#facc15" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span class="badge-uc">UC</span></div><p class="pkg-name">56500 UC</p><p class="pkg-price">₹1499</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'5400 UC','₹499')"><div class="pkg-icon uc"><img src="https://topup-crazy.com/uploads/media/692d40078a88a_1764573191.png" alt="UC"><span class="badge-uc">UC</span></div><p class="pkg-name">5400 UC</p><p class="pkg-price">₹499</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'9250 UC','₹599')"><div class="pkg-icon uc"><img src="https://topup-crazy.com/uploads/media/692d40078a88a_1764573191.png" alt="UC"><span class="badge-uc">UC</span></div><p class="pkg-name">9250 UC</p><p class="pkg-price">₹599</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'13100 UC','₹699')"><div class="pkg-icon uc"><img src="https://topup-crazy.com/uploads/media/692d40078a88a_1764573191.png" alt="UC"><span class="badge-uc">UC</span></div><p class="pkg-name">13100 UC</p><p class="pkg-price">₹699</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'25212 UC','₹799')"><div class="pkg-icon uc"><img src="https://topup-crazy.com/uploads/media/692d40078a88a_1764573191.png" alt="UC"><span class="badge-uc">UC</span></div><p class="pkg-name">25212 UC</p><p class="pkg-price">₹799</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'32400 UC','₹899')"><div class="pkg-icon uc"><img src="https://topup-crazy.com/uploads/media/692d40078a88a_1764573191.png" alt="UC"><span class="badge-uc">UC</span></div><p class="pkg-name">32400 UC</p><p class="pkg-price">₹899</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'38500 UC','₹999')"><div class="pkg-icon uc"><img src="https://topup-crazy.com/uploads/media/692d40078a88a_1764573191.png" alt="UC"><span class="badge-uc">UC</span></div><p class="pkg-name">38500 UC</p><p class="pkg-price">₹999</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'47000 UC','₹1299')"><div class="pkg-icon uc"><img src="https://topup-crazy.com/uploads/media/692d40078a88a_1764573191.png" alt="UC"><span class="badge-uc">UC</span></div><p class="pkg-name">47000 UC</p><p class="pkg-price">₹1299</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'56500 UC','₹1499')"><div class="pkg-icon uc"><img src="https://topup-crazy.com/uploads/media/692d40078a88a_1764573191.png" alt="UC"><span class="badge-uc">UC</span></div><p class="pkg-name">56500 UC</p><p class="pkg-price">₹1499</p></div>
     </div>
 
     <!-- Free Fire packages -->
     <div class="pkg-grid hidden" id="ffPkgs">
-      <div class="pkg-card" onclick="selectPackage(this,'2400 Diamond','₹379')"><div class="pkg-icon dia"><svg fill="#67e8f9" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><p class="pkg-name">2400 Diamond</p><p class="pkg-price">₹379</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'3800 Diamond','₹549')"><div class="pkg-icon dia"><svg fill="#67e8f9" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><p class="pkg-name">3800 Diamond</p><p class="pkg-price">₹549</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'5200 Diamond','₹749')"><div class="pkg-icon dia"><svg fill="#67e8f9" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><p class="pkg-name">5200 Diamond</p><p class="pkg-price">₹749</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'7000 Diamond','₹899')"><div class="pkg-icon dia"><svg fill="#67e8f9" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><p class="pkg-name">7000 Diamond</p><p class="pkg-price">₹899</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'8200 Diamond','₹999')"><div class="pkg-icon dia"><svg fill="#67e8f9" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><p class="pkg-name">8200 Diamond</p><p class="pkg-price">₹999</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'10500 Diamond','₹1249')"><div class="pkg-icon dia"><svg fill="#67e8f9" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><p class="pkg-name">10500 Diamond</p><p class="pkg-price">₹1249</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'14500 Diamond','₹1649')"><div class="pkg-icon dia"><svg fill="#67e8f9" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><p class="pkg-name">14500 Diamond</p><p class="pkg-price">₹1649</p></div>
-      <div class="pkg-card" onclick="selectPackage(this,'21000 Diamond','₹2099')"><div class="pkg-icon dia"><svg fill="#67e8f9" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><p class="pkg-name">21000 Diamond</p><p class="pkg-price">₹2099</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'2400 Diamond','₹379')"><div class="pkg-icon dia"><img src="https://topup-crazy.com/uploads/media/692d4212209f9_1764573714.png" alt="Diamond"></div><p class="pkg-name">2400 Diamond</p><p class="pkg-price">₹379</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'3800 Diamond','₹549')"><div class="pkg-icon dia"><img src="https://topup-crazy.com/uploads/media/692d4212209f9_1764573714.png" alt="Diamond"></div><p class="pkg-name">3800 Diamond</p><p class="pkg-price">₹549</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'5200 Diamond','₹749')"><div class="pkg-icon dia"><img src="https://topup-crazy.com/uploads/media/692d4212209f9_1764573714.png" alt="Diamond"></div><p class="pkg-name">5200 Diamond</p><p class="pkg-price">₹749</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'7000 Diamond','₹899')"><div class="pkg-icon dia"><img src="https://topup-crazy.com/uploads/media/692d4212209f9_1764573714.png" alt="Diamond"></div><p class="pkg-name">7000 Diamond</p><p class="pkg-price">₹899</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'8200 Diamond','₹999')"><div class="pkg-icon dia"><img src="https://topup-crazy.com/uploads/media/692d4212209f9_1764573714.png" alt="Diamond"></div><p class="pkg-name">8200 Diamond</p><p class="pkg-price">₹999</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'10500 Diamond','₹1249')"><div class="pkg-icon dia"><img src="https://topup-crazy.com/uploads/media/692d4212209f9_1764573714.png" alt="Diamond"></div><p class="pkg-name">10500 Diamond</p><p class="pkg-price">₹1249</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'14500 Diamond','₹1649')"><div class="pkg-icon dia"><img src="https://topup-crazy.com/uploads/media/692d4212209f9_1764573714.png" alt="Diamond"></div><p class="pkg-name">14500 Diamond</p><p class="pkg-price">₹1649</p></div>
+      <div class="pkg-card" onclick="selectPackage(this,'21000 Diamond','₹2099')"><div class="pkg-icon dia"><img src="https://topup-crazy.com/uploads/media/692d4212209f9_1764573714.png" alt="Diamond"></div><p class="pkg-name">21000 Diamond</p><p class="pkg-price">₹2099</p></div>
     </div>
   </div>
 
@@ -654,8 +740,8 @@ function getCookie(name) {
   if (document.cookie && document.cookie !== "") {
     const cookies = document.cookie.split(";");
     for (let cookie of cookies) {
-      cookie = cookie.trim();
-      if (cookie.startsWith(name + "=")) {
+           cookie = cookie.trim();
+      if (cookie.substring(0, name.length + 1) === (name + "=")) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
