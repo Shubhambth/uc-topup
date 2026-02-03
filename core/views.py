@@ -2,11 +2,15 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render
 from qrdata.models import PaymentQR
+from django.views.decorators.csrf import csrf_exempt
 
 
 def home(request):
     return render(request, "home.html")
 
+
+
+@csrf_exempt
 def checkout(request):
     if request.method == "POST":
         data = json.loads(request.body)
