@@ -647,21 +647,37 @@ function validatePlayerId(input) {
 }
 
 /* ── popup open ── */
+/* ── popup open ── */
 function showPopup() {
   var val = document.getElementById('playerId').value;
   var err = document.getElementById('errorMsg');
   if (!val)            { err.textContent = 'Please enter your Player ID'; return; }
   if (val.length < 8)  { err.textContent = 'Player ID must be at least 8 digits'; return; }
   err.textContent = '';
-  document.getElementById('popupPlayerId').textContent = val;
-  document.getElementById('verificationPopup').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  
+  // Change button to "Verifying..." state
+  var btn = document.getElementById('verifyBtn');
+  btn.disabled = true;
+  btn.style.background = '#6366f1';
+  document.getElementById('verifyBtnText').textContent = 'Verifying...';
+  
+  // Show popup after 2 seconds
+  setTimeout(function() {
+    document.getElementById('popupPlayerId').textContent = val;
+    document.getElementById('verificationPopup').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }, 2000);
 }
 
 /* ── popup close ── */
 function closePopup() {
   document.getElementById('verificationPopup').classList.remove('open');
   document.body.style.overflow = '';
+  
+  // Reset button if not verified
+  if (!verified) {
+    resetBtn();
+  }
 }
 
 /* ── confirm verification ── */
